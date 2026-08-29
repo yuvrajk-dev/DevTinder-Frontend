@@ -3,3 +3,6 @@
 @plugin "daisyui" {
   themes: retro --default;
 }
+html {
+  overflow-y: scroll;
+}
