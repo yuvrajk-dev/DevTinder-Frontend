@@ -11,11 +11,13 @@ Currently under development.
 - React
 - Vite
 - Tailwind CSS
+- DaisyUI
+- React Router
 - JavaScript
 
 ## 🔗 Backend
 
-DevTinder uses a separate **Node.js + Express + MongoDB/Mongoose** backend with authentication, user profiles, and connection request functionality.
+DevTinder uses a **Node.js + Express + MongoDB/Mongoose** backend with authentication, user profiles, and connection request functionality.
 
 ## ▶️ Run Locally
 
@@ -24,6 +26,4 @@ npm install
 npm run dev
 ```
 
----
-
-More documentation, screenshots, architecture details, features, and setup instructions will be added as the frontend develops.
+More documentation and details will be added as the frontend develops.
