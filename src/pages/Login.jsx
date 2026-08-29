@@ -10,7 +10,11 @@ const Login = () => {
   const navigate = useNavigate();
   const [emailId, setEmail] = useState("Yuvraj@gmail.com");
   const [password, setPassword] = useState("Yuvraj@120");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const handleLogin = async () => {
+    if (isLoading) return;
+    setIsLoading(true);
     try {
       let res = await axios.post(
         `${BASE_URL}/login`,
@@ -20,8 +24,11 @@ const Login = () => {
 
       dispatch(addUser(res.data.data));
       navigate("/");
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      setErrorMessage(err.response?.data?.message || "Something went wrong");
+      console.log(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -38,6 +45,7 @@ const Login = () => {
           placeholder="Email"
           onChange={(e) => {
             setEmail(e.target.value);
+            setErrorMessage("");
           }}
         />
 
@@ -45,6 +53,7 @@ const Login = () => {
         <input
           onChange={(e) => {
             setPassword(e.target.value);
+            setErrorMessage("");
           }}
           value={password}
           type="password"
@@ -52,8 +61,19 @@ const Login = () => {
           placeholder="Password"
         />
 
-        <button className="btn btn-neutral mt-4" onClick={handleLogin}>
-          Login
+        {errorMessage && (
+          <span className=" pl-1 text-red-400">{errorMessage}</span>
+        )}
+        <button
+          disabled={isLoading}
+          className="btn btn-neutral mt-4"
+          onClick={handleLogin}
+        >
+          {isLoading ? (
+            <span className="loading loading-infinity loading-xs"></span>
+          ) : (
+            "Login"
+          )}
         </button>
       </fieldset>
     </div>

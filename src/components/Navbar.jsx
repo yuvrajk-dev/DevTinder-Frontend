@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUser } from "../utils/userSlice";
-import { useNavigate } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import { BASE_URL } from "../utils/constants";
 
 const Navbar = () => {
@@ -20,9 +20,11 @@ const Navbar = () => {
 
   const user = useSelector((store) => store.user);
   return (
-    <div className="navbar bg-base-100 shadow-sm top-0 fixed">
+    <div className="navbar z-999 bg-base-100 shadow-sm top-0 fixed">
       <div className="flex-1 ">
-        <a className="btn btn-ghost text-xl">DevTinder</a>
+        <Link to="/" className="btn btn-ghost text-xl">
+          DevTinder
+        </Link>
       </div>
 
       {user && (
@@ -49,21 +51,38 @@ const Navbar = () => {
               </span>
             </li>
             <li>
-              <a
-                onClick={() => {
-                  navigate("/profile");
-                }}
-                className="justify-between"
+              <NavLink
+                onClick={() => document.activeElement?.blur()}
+                className={({ isActive }) => (isActive ? "bg-black/20" : "")}
+                to={"/"}
+              >
+                Home
+                {/* <span className="badge">New</span> */}
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                onClick={() => document.activeElement?.blur()}
+                className={({ isActive }) => (isActive ? "bg-black/20" : "")}
+                to={"/profile"}
               >
                 Profile
                 {/* <span className="badge">New</span> */}
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a>Settings</a>
+              <NavLink
+                onClick={() => document.activeElement?.blur()}
+                className={({ isActive }) => (isActive ? "bg-black/20" : "")}
+                to={"/settings"}
+              >
+                Settings
+              </NavLink>
             </li>
-            <li onClick={handleLogout}>
-              <a>Logout</a>
+            <li className=" p-0">
+              <button className="w-full " onClick={handleLogout}>
+                Logout
+              </button>
             </li>
           </ul>
         </div>
