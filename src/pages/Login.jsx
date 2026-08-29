@@ -16,7 +16,7 @@ const Login = () => {
     if (isLoading) return;
     setIsLoading(true);
     try {
-      let res = await axios.post(
+      const res = await axios.post(
         `${BASE_URL}/login`,
         { emailId, password },
         { withCredentials: true },
