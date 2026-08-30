@@ -6,40 +6,60 @@ import { addUser } from "../utils/userSlice";
 
 const Profile = () => {
   const user = useSelector((store) => store.user);
-  //   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [firstName, setFirstName] = useState(user?.firstName || "");
   const [lastName, setLastName] = useState(user?.lastName || "");
   const [age, setAge] = useState(user?.age || "");
   const [gender, setGender] = useState(user?.gender || "");
+  const [bio, setBio] = useState(user?.bio || "");
+
+  const [skills, setSkills] = useState(
+    user?.skills ? user.skills.join(", ") : "",
+  );
+
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const skillsArray = skills
+    .split(",")
+    .map((skill) => skill.trim())
+    .filter(Boolean);
+
+  const originalSkills = user?.skills || [];
+
   const hasChanges =
     firstName !== user?.firstName ||
     lastName !== user?.lastName ||
     String(age) !== String(user?.age) ||
-    gender !== user?.gender;
+    gender !== user?.gender ||
+    bio !== user?.bio ||
+    JSON.stringify(skillsArray) !== JSON.stringify(originalSkills);
 
   const handleChanges = async () => {
-    if (isLoading) return;
+    if (isLoading || !hasChanges) return;
+
     try {
       setIsLoading(true);
+
       const res = await axios.patch(
         `${BASE_URL}/profile/edit`,
-
         {
           firstName,
           lastName,
           age,
           gender,
+          bio,
+          skills: skillsArray,
         },
         {
           withCredentials: true,
         },
       );
+
       dispatch(addUser(res.data.data));
+
       setErrorMessage("");
       setSuccessMessage(res.data.message);
     } catch (err) {
@@ -53,11 +73,12 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center pt-20">
+    <div className="min-h-screen flex items-center justify-center pt-16 pb-10">
       <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
         <legend className="fieldset-legend text-3xl">Edit Profile</legend>
 
         <label className="label">First Name</label>
+
         <input
           type="text"
           className="input"
@@ -70,6 +91,7 @@ const Profile = () => {
         />
 
         <label className="label">Last Name</label>
+
         <input
           type="text"
           className="input"
@@ -82,6 +104,7 @@ const Profile = () => {
         />
 
         <label className="label">Email</label>
+
         <input
           type="email"
           className="input"
@@ -90,6 +113,7 @@ const Profile = () => {
         />
 
         <label className="label">Age</label>
+
         <input
           type="text"
           className="input"
@@ -102,6 +126,7 @@ const Profile = () => {
         />
 
         <label className="label">Gender</label>
+
         <select
           className="select"
           value={gender}
@@ -114,16 +139,48 @@ const Profile = () => {
           <option value="" disabled>
             Select Gender
           </option>
+
           <option value="male">Male</option>
           <option value="female">Female</option>
           <option value="other">Other</option>
         </select>
+
+        <label className="label">Bio</label>
+
+        <textarea
+          className="textarea resize-none"
+          value={bio}
+          placeholder="Tell us about yourself..."
+          rows="3"
+          onChange={(e) => {
+            setBio(e.target.value);
+            setSuccessMessage("");
+            setErrorMessage("");
+          }}
+        />
+
+        <label className="label">Skills (Maximum 5)</label>
+
+        <input
+          type="text"
+          className="input"
+          placeholder="React, Node.js, MongoDB..."
+          value={skills}
+          onChange={(e) => {
+            setSkills(e.target.value);
+            setSuccessMessage("");
+            setErrorMessage("");
+          }}
+        />
+
         {successMessage && (
-          <span className=" pl-1 text-green-400">{successMessage}</span>
+          <span className="pl-1 text-green-400">{successMessage}</span>
         )}
+
         {errorMessage && (
-          <span className=" pl-1 text-red-400">{errorMessage}</span>
+          <span className="pl-1 text-red-400">{errorMessage}</span>
         )}
+
         <button
           disabled={isLoading || !hasChanges}
           onClick={handleChanges}

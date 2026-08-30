@@ -8,79 +8,130 @@ import { BASE_URL } from "../utils/constants";
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const user = useSelector((store) => store.user);
+
   const handleLogout = async () => {
     try {
       await axios.post(`${BASE_URL}/logout`, {}, { withCredentials: true });
+
       dispatch(removeUser());
-      navigate("/login");
+      navigate("/auth");
     } catch (error) {
       console.log(error);
     }
   };
 
-  const user = useSelector((store) => store.user);
+  const closeDropdown = () => {
+    document.activeElement?.blur();
+  };
+
   return (
-    <div className="navbar z-999 bg-base-100 shadow-sm top-0 fixed">
-      <div className="flex-1 ">
-        <Link to="/" className="btn btn-ghost text-xl">
+    <div className="navbar fixed top-0 z-50 bg-base-100 shadow-sm px-3 sm:px-5">
+      <div className="flex-1">
+        <Link to="/" className="btn btn-ghost text-lg sm:text-xl">
           DevTinder
         </Link>
       </div>
 
       {user && (
-        <div className="dropdown dropdown-end mr-5">
+        <div className="dropdown dropdown-end mr-1 sm:mr-5">
           <div
             tabIndex={0}
             role="button"
             className="btn btn-ghost btn-circle avatar"
           >
-            <div className="w-10 rounded-full">
+            <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
               <img
-                alt="Tailwind CSS Navbar component"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                src={
+                  user.gender === "male"
+                    ? "https://api.dicebear.com/10.x/adventurer/svg?seed=Milo"
+                    : "https://api.dicebear.com/10.x/adventurer/svg?seed=Aneka"
+                }
+                alt={`${user.firstName}'s avatar`}
+                className="w-full h-full rounded-full bg-base-200"
               />
             </div>
           </div>
+
           <ul
             tabIndex={-1}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            className="
+    menu menu-sm dropdown-content
+    bg-base-100 rounded-2xl
+    z-50 p-4
+    shadow-xl border border-base-300
+
+    
+    max-sm:fixed
+    max-sm:left-2
+    max-sm:right-2
+    max-sm:top-20
+    max-sm:w-auto
+    max-sm:min-h-75
+
+    /* 💻 Desktop */
+    sm:absolute
+    sm:right-0
+    sm:mt-4
+    sm:w-56
+"
           >
-            <li className=" py-2 pointer-events-none">
-              <span className=" font-bold">
-                {user.firstName + " " + user.lastName}
-              </span>
+            <li className="pointer-events-none mb-2">
+              <div className="flex flex-col items-start gap-1 py-3">
+                <span className="font-bold text-base">
+                  {user.firstName} {user.lastName}
+                </span>
+
+                <span className="text-xs opacity-60">Manage your account</span>
+              </div>
             </li>
+
+            <div className="divider my-1" />
+
             <li>
               <NavLink
-                onClick={() => document.activeElement?.blur()}
-                className={({ isActive }) => (isActive ? "bg-black/20" : "")}
-                to={"/"}
+                onClick={closeDropdown}
+                className={({ isActive }) =>
+                  isActive ? "bg-primary text-primary-content" : ""
+                }
+                to="/"
               >
                 Home
-                {/* <span className="badge">New</span> */}
               </NavLink>
             </li>
+
             <li>
               <NavLink
-                onClick={() => document.activeElement?.blur()}
-                className={({ isActive }) => (isActive ? "bg-black/20" : "")}
-                to={"/profile"}
+                onClick={closeDropdown}
+                className={({ isActive }) =>
+                  isActive ? "bg-primary text-primary-content" : ""
+                }
+                to="/profile"
               >
                 Profile
-                {/* <span className="badge">New</span> */}
               </NavLink>
             </li>
+
             <li>
               <NavLink
-                onClick={() => document.activeElement?.blur()}
-                className={({ isActive }) => (isActive ? "bg-black/20" : "")}
-                to={"/settings"}
+                onClick={closeDropdown}
+                className={({ isActive }) =>
+                  isActive ? "bg-primary text-primary-content" : ""
+                }
+                to="/settings"
               >
                 Settings
               </NavLink>
             </li>
-            <li className=" p-0">
-              <button className="w-full " onClick={handleLogout}>
+
+            <div className="divider my-1" />
+
+            <li>
+              <button
+                className="text-error hover:bg-error hover:text-error-content"
+                onClick={handleLogout}
+              >
                 Logout
               </button>
             </li>

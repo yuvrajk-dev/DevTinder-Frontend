@@ -7,22 +7,23 @@ import UserCard from "../components/UserCard";
 
 const Feed = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+
   const dispatch = useDispatch();
-  const user = useSelector((store) => {
-    return store.feed;
-  });
+
+  const feed = useSelector((store) => store.feed);
 
   const getFeed = async () => {
-    if (user && user.length > 0) {
+    if (feed && feed.length > 0) {
       setIsLoaded(true);
       return;
     }
+
     try {
       const res = await axios.get(`${BASE_URL}/feed`, {
         withCredentials: true,
       });
+
       dispatch(addFeed(res.data));
-      console.log(res.data);
     } catch (err) {
       console.log(err);
     } finally {
@@ -34,19 +35,36 @@ const Feed = () => {
     getFeed();
   }, []);
 
-  if (isLoaded) {
-    return (
-      <div className="min-h-screen flex justify-center items-center">
-        <UserCard user={user[0]} />
-      </div>
-    );
-  } else {
+  if (!isLoaded) {
     return (
       <div className="min-h-screen flex justify-center items-center">
         <span className="loading loading-infinity loading-xl"></span>
       </div>
     );
   }
+
+  if (!feed || feed.length === 0) {
+    return (
+      <div className="min-h-screen flex justify-center items-center px-4">
+        <div className="card bg-base-200 border border-base-300 shadow-xl w-96">
+          <div className="card-body text-center items-center">
+            <h2 className="card-title text-2xl">No Developers Found</h2>
+
+            <p className="opacity-70">
+              You've seen everyone for now. Check back later to discover more
+              developers!
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen flex justify-center items-center">
+      <UserCard user={feed[0]} />
+    </div>
+  );
 };
 
 export default Feed;
