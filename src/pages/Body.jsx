@@ -22,9 +22,10 @@ const Body = () => {
         dispatch(addUser(user.data.data));
       }
     } catch (err) {
-      if (err.response?.status === 401) {
-        navigate("/auth");
-      }
+      navigate("/auth", { replace: true });
+      // if (err.response?.status === 401) {
+      //   navigate("/auth");
+      // }
       console.log(err);
     } finally {
       setIsLoaded(true);
