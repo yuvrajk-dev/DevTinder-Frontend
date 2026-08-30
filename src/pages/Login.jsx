@@ -8,8 +8,8 @@ import { BASE_URL } from "../utils/constants";
 const Login = ({ switchMode }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [emailId, setEmail] = useState("Elon@gmail.com");
-  const [password, setPassword] = useState("Demo@120");
+  const [emailId, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const handleLogin = async () => {
