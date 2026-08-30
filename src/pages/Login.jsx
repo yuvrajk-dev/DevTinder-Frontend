@@ -8,13 +8,18 @@ import { BASE_URL } from "../utils/constants";
 const Login = ({ switchMode }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const [emailId, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
   const handleLogin = async () => {
     if (isLoading) return;
+
+    setErrorMessage("");
     setIsLoading(true);
+
     try {
       const res = await axios.post(
         `${BASE_URL}/login`,
@@ -33,10 +38,11 @@ const Login = ({ switchMode }) => {
   };
 
   return (
-    <fieldset className="fieldset  bg-base-200 border-base-300 rounded-box w-xs border p-4">
-      <legend className="fieldset-legend text-3xl ">Login</legend>
+    <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+      <legend className="fieldset-legend text-3xl">Login</legend>
 
       <label className="label">Email</label>
+
       <input
         type="email"
         className="input"
@@ -49,20 +55,25 @@ const Login = ({ switchMode }) => {
       />
 
       <label className="label">Password</label>
+
       <input
-        onChange={(e) => {
-          setPassword(e.target.value);
-          setErrorMessage("");
-        }}
         value={password}
         type="password"
         className="input"
         placeholder="Password"
+        onChange={(e) => {
+          setPassword(e.target.value);
+          setErrorMessage("");
+        }}
       />
 
+      {/* Error Box */}
       {errorMessage && (
-        <span className=" pl-1 text-red-400">{errorMessage}</span>
+        <div className="alert alert-error mt-2">
+          <span>{errorMessage}</span>
+        </div>
       )}
+
       <button
         disabled={isLoading}
         className="btn btn-neutral mt-4"
@@ -74,8 +85,10 @@ const Login = ({ switchMode }) => {
           "Login"
         )}
       </button>
+
       <div className="mt-4 text-center">
         <span className="text-sm">New here? </span>
+
         <button onClick={switchMode} className="link link-primary text-sm">
           Create an account
         </button>

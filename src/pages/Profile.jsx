@@ -39,7 +39,8 @@ const Profile = () => {
 
   const handleChanges = async () => {
     if (isLoading || !hasChanges) return;
-
+    setSuccessMessage("");
+    setErrorMessage("");
     try {
       setIsLoading(true);
 
@@ -174,11 +175,15 @@ const Profile = () => {
         />
 
         {successMessage && (
-          <span className="pl-1 text-green-400">{successMessage}</span>
+          <div className="alert alert-success mt-2">
+            <span>{successMessage}</span>
+          </div>
         )}
 
         {errorMessage && (
-          <span className="pl-1 text-red-400">{errorMessage}</span>
+          <div className="alert alert-error mt-2">
+            <span>{errorMessage}</span>
+          </div>
         )}
 
         <button

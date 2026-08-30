@@ -26,7 +26,6 @@ const Body = () => {
       // if (err.response?.status === 401) {
       //   navigate("/auth");
       // }
-      console.log(err);
     } finally {
       setIsLoaded(true);
     }

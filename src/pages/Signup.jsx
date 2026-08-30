@@ -101,7 +101,7 @@ const Signup = ({ switchMode }) => {
 
   const handleSignup = async () => {
     if (!validateForm()) return;
-
+    setErrorMessage("");
     if (isLoading) return;
 
     setIsLoading(true);
@@ -293,7 +293,9 @@ const Signup = ({ switchMode }) => {
       )}
 
       {errorMessage && (
-        <span className="pl-1 text-red-400">{errorMessage}</span>
+        <div className="alert alert-error mt-2">
+          <span>{errorMessage}</span>
+        </div>
       )}
 
       <button
