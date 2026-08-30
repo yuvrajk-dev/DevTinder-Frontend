@@ -70,7 +70,6 @@ const Navbar = () => {
     max-sm:w-auto
     max-sm:min-h-75
 
-    /* 💻 Desktop */
     sm:absolute
     sm:right-0
     sm:mt-4
