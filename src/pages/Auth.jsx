@@ -16,7 +16,7 @@ const Auth = () => {
   }, [isLogin]);
 
   return (
-    <div className="min-h-screen border flex items-center justify-center pt-16 pb-10">
+    <div className="min-h-screen  flex items-center justify-center pt-16 pb-10">
       {isLogin ? (
         <Login switchMode={switchMode} />
       ) : (
