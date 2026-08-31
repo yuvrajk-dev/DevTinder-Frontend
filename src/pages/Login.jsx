@@ -38,7 +38,7 @@ const Login = ({ switchMode }) => {
   };
 
   return (
-    <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-[95vw] max-w-md border p-5 sm:p-6">
+    <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-[90vw] sm:w-sm border p-5 sm:p-6">
       <legend className="fieldset-legend text-3xl">Login</legend>
 
       <label className="label">Email</label>
