@@ -52,7 +52,7 @@ const Settings = () => {
   };
 
   return (
-    <div className="min-h-screen pt-27 px-4 flex justify-center ">
+    <div className="min-h-screen pt-27 px-4 flex justify-center items-center ">
       <div className="card w-full max-w-md bg-base-200 shadow-xl border border-base-300 h-fit">
         <div className="card-body">
           <div className="mb-4">
