@@ -39,8 +39,10 @@ const Profile = () => {
 
   const handleChanges = async () => {
     if (isLoading || !hasChanges) return;
+
     setSuccessMessage("");
     setErrorMessage("");
+
     try {
       setIsLoading(true);
 
@@ -61,7 +63,6 @@ const Profile = () => {
 
       dispatch(addUser(res.data.data));
 
-      setErrorMessage("");
       setSuccessMessage(res.data.message);
     } catch (err) {
       console.log(err);
@@ -73,21 +74,25 @@ const Profile = () => {
     }
   };
 
+  const clearMessages = () => {
+    setSuccessMessage("");
+    setErrorMessage("");
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 pt-16 pb-10">
-      <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+    <div className="min-h-screen flex items-center justify-center px-4 pt-20 pb-10">
+      <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-[90vw] sm:w-sm border p-5 sm:p-6">
         <legend className="fieldset-legend text-3xl">Edit Profile</legend>
 
         <label className="label">First Name</label>
 
         <input
           type="text"
-          className="input"
+          className="input w-full"
           value={firstName}
           onChange={(e) => {
             setFirstName(e.target.value);
-            setSuccessMessage("");
-            setErrorMessage("");
+            clearMessages();
           }}
         />
 
@@ -95,12 +100,11 @@ const Profile = () => {
 
         <input
           type="text"
-          className="input"
+          className="input w-full"
           value={lastName}
           onChange={(e) => {
             setLastName(e.target.value);
-            setSuccessMessage("");
-            setErrorMessage("");
+            clearMessages();
           }}
         />
 
@@ -108,7 +112,7 @@ const Profile = () => {
 
         <input
           type="email"
-          className="input"
+          className="input w-full"
           value={user?.emailId || ""}
           disabled
         />
@@ -117,24 +121,22 @@ const Profile = () => {
 
         <input
           type="text"
-          className="input"
+          className="input w-full"
           value={age}
           onChange={(e) => {
             setAge(e.target.value);
-            setSuccessMessage("");
-            setErrorMessage("");
+            clearMessages();
           }}
         />
 
         <label className="label">Gender</label>
 
         <select
-          className="select"
+          className="select w-full"
           value={gender}
           onChange={(e) => {
             setGender(e.target.value);
-            setSuccessMessage("");
-            setErrorMessage("");
+            clearMessages();
           }}
         >
           <option value="" disabled>
@@ -149,14 +151,13 @@ const Profile = () => {
         <label className="label">Bio</label>
 
         <textarea
-          className="textarea resize-none"
+          className="textarea w-full resize-none"
           value={bio}
           placeholder="Tell us about yourself..."
           rows="3"
           onChange={(e) => {
             setBio(e.target.value);
-            setSuccessMessage("");
-            setErrorMessage("");
+            clearMessages();
           }}
         />
 
@@ -164,24 +165,23 @@ const Profile = () => {
 
         <input
           type="text"
-          className="input"
+          className="input w-full"
           placeholder="React, Node.js, MongoDB..."
           value={skills}
           onChange={(e) => {
             setSkills(e.target.value);
-            setSuccessMessage("");
-            setErrorMessage("");
+            clearMessages();
           }}
         />
 
         {successMessage && (
-          <div className="alert alert-success mt-2">
+          <div className="alert alert-success mt-3 w-full">
             <span>{successMessage}</span>
           </div>
         )}
 
         {errorMessage && (
-          <div className="alert alert-error mt-2">
+          <div className="alert alert-error mt-3 w-full">
             <span>{errorMessage}</span>
           </div>
         )}
@@ -189,7 +189,7 @@ const Profile = () => {
         <button
           disabled={isLoading || !hasChanges}
           onClick={handleChanges}
-          className="btn btn-neutral mt-4"
+          className="btn btn-neutral mt-4 w-full"
         >
           {isLoading ? (
             <span className="loading loading-infinity loading-xs"></span>
