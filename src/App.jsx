@@ -1,10 +1,8 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import Body from "./pages/Body";
-import Login from "./pages/Login";
 import Feed from "./pages/Feed";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
-import Signup from "./pages/Signup";
 import Auth from "./pages/Auth";
 import Connections from "./pages/Connections";
 import Requests from "./pages/Requests";
