@@ -29,7 +29,10 @@ const Navbar = () => {
   return (
     <div className="navbar fixed top-0 z-50 bg-base-100 shadow-sm px-3 sm:px-5">
       <div className="flex-1">
-        <Link to="/" className="btn btn-ghost text-lg sm:text-xl">
+        <Link
+          to="/"
+          className="text-lg sm:text-xl font-semibold hover:opacity-80 transition-opacity"
+        >
           DevTinder
         </Link>
       </div>
@@ -87,6 +90,17 @@ const Navbar = () => {
             </li>
 
             <div className="divider my-1" />
+            <li>
+              <NavLink
+                onClick={closeDropdown}
+                className={({ isActive }) =>
+                  isActive ? "bg-primary text-primary-content" : ""
+                }
+                to="/profile"
+              >
+                Profile
+              </NavLink>
+            </li>
 
             <li>
               <NavLink
@@ -96,7 +110,18 @@ const Navbar = () => {
                 }
                 to="/"
               >
-                Home
+                Feed
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                onClick={closeDropdown}
+                className={({ isActive }) =>
+                  isActive ? "bg-primary text-primary-content" : ""
+                }
+                to="/requests"
+              >
+                Requests
               </NavLink>
             </li>
             <li>
@@ -108,17 +133,6 @@ const Navbar = () => {
                 to="/connections"
               >
                 Connections
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                onClick={closeDropdown}
-                className={({ isActive }) =>
-                  isActive ? "bg-primary text-primary-content" : ""
-                }
-                to="/profile"
-              >
-                Profile
               </NavLink>
             </li>
 

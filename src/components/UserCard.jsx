@@ -1,7 +1,32 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
+import { BASE_URL } from "../utils/constants";
+import { useDispatch } from "react-redux";
+import { removeFeed } from "../utils/feedSlice";
 
 const UserCard = ({ user }) => {
-  if (!user) return null;
+  const [loadingId, setLoadingId] = useState(null);
+  const dispatch = useDispatch();
+
+  const handleAction = async (id, status) => {
+    setLoadingId({ id, status });
+
+    try {
+      await axios.post(
+        `${BASE_URL}/request/send/${status}/${id}`,
+        {},
+        {
+          withCredentials: true,
+        },
+      );
+
+      dispatch(removeFeed(id));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoadingId(null);
+    }
+  };
 
   return (
     <div className="card bg-base-200 w-96 shadow-xl border border-base-300">
@@ -24,8 +49,8 @@ const UserCard = ({ user }) => {
                 ? "https://api.dicebear.com/10.x/adventurer/svg?seed=Milo"
                 : "https://api.dicebear.com/10.x/adventurer/svg?seed=Aneka"
             }
-            alt="avatar"
-            className="w-20 h-20"
+            alt={`${user.firstName}'s avatar`}
+            className="w-20 h-20 shrink-0"
           />
         </div>
 
@@ -54,15 +79,31 @@ const UserCard = ({ user }) => {
         )}
 
         <div className="card-actions justify-center gap-6 mt-6">
-          <button className="btn btn-error btn-circle text-xl" title="Ignore">
-            ✕
+          <button
+            disabled={loadingId?.id === user._id}
+            onClick={() => handleAction(user._id, "ignored")}
+            className="btn btn-error btn-circle text-xl"
+            title="Ignore"
+          >
+            {loadingId?.id === user._id && loadingId?.status === "ignored" ? (
+              <span className="loading loading-spinner loading-sm"></span>
+            ) : (
+              "✕"
+            )}
           </button>
 
           <button
+            disabled={loadingId?.id === user._id}
+            onClick={() => handleAction(user._id, "interested")}
             className="btn btn-success btn-circle text-xl"
             title="Interested"
           >
-            ♥
+            {loadingId?.id === user._id &&
+            loadingId?.status === "interested" ? (
+              <span className="loading loading-spinner loading-sm"></span>
+            ) : (
+              "♥"
+            )}
           </button>
         </div>
       </div>

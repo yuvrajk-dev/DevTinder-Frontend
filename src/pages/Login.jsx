@@ -67,7 +67,6 @@ const Login = ({ switchMode }) => {
         }}
       />
 
-      {/* Error Box */}
       {errorMessage && (
         <div className="alert alert-error mt-2">
           <span>{errorMessage}</span>
