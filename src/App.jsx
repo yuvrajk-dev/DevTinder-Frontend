@@ -6,6 +6,7 @@ import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import Signup from "./pages/Signup";
 import Auth from "./pages/Auth";
+import Connections from "./pages/Connections";
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
             <Route path="/auth" element={<Auth />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/connections" element={<Connections />} />
+
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Routes>

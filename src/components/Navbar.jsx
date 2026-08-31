@@ -99,7 +99,17 @@ const Navbar = () => {
                 Home
               </NavLink>
             </li>
-
+            <li>
+              <NavLink
+                onClick={closeDropdown}
+                className={({ isActive }) =>
+                  isActive ? "bg-primary text-primary-content" : ""
+                }
+                to="/connections"
+              >
+                Connections
+              </NavLink>
+            </li>
             <li>
               <NavLink
                 onClick={closeDropdown}
