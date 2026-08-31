@@ -74,7 +74,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center pt-16 pb-10">
+    <div className="min-h-screen flex items-center justify-center px-4 pt-16 pb-10">
       <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
         <legend className="fieldset-legend text-3xl">Edit Profile</legend>
 

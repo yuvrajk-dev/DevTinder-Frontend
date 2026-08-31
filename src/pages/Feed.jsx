@@ -61,7 +61,7 @@ const Feed = () => {
   }
 
   return (
-    <div className="min-h-screen flex justify-center items-center">
+    <div className="min-h-screen flex p-4 justify-center items-center">
       <UserCard user={feed[0]} />
     </div>
   );
