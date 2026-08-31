@@ -17,7 +17,7 @@ function App() {
             <Route path="/auth" element={<Auth />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/settings" element={<Settings />} />
-            <Route path="/connections" element={<Connections />} />
+            <Route path="/network" element={<Connections />} />
             <Route path="/requests" element={<Requests />} />
 
             <Route path="*" element={<Navigate to="/" replace />} />

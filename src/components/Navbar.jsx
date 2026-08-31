@@ -104,6 +104,7 @@ const Navbar = () => {
 
             <li>
               <NavLink
+                end
                 onClick={closeDropdown}
                 className={({ isActive }) =>
                   isActive ? "bg-primary text-primary-content" : ""
@@ -130,9 +131,9 @@ const Navbar = () => {
                 className={({ isActive }) =>
                   isActive ? "bg-primary text-primary-content" : ""
                 }
-                to="/connections"
+                to="/network"
               >
-                Connections
+                My Network
               </NavLink>
             </li>
 
