@@ -151,7 +151,7 @@ const Signup = ({ switchMode }) => {
   };
 
   return (
-    <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-[95vw] max-w-xs border p-5 sm:p-6">
+    <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-[95vw] max-w-md sm:w-[90vw] sm:max-w-lg border p-5 sm:p-6">
       <legend className="fieldset-legend text-3xl">Create Account</legend>
 
       <div className="flex gap-2">
