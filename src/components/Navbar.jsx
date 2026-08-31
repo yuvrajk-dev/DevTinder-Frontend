@@ -34,7 +34,7 @@ const Navbar = () => {
           className="flex items-center gap-2 text-lg sm:text-xl font-semibold hover:opacity-80 transition-opacity"
         >
           <img
-            src="public/favicon.png"
+            src="/favicon.png"
             alt="DevTinder logo"
             className="w-8 h-8 object-contain"
           />
